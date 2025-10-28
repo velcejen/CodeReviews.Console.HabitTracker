@@ -1,7 +1,8 @@
 Introduction
-
+        
 The purpose of this application is to store and manage information about a given habit. The information stored informs of the date, quantity and location that the habit occurred.
-This application uses CRUD functions which are an essential part of practically any app. The purpose of this project is as an introduction to basic CRUD options.
+This application uses CRUD functions which are an essential part of practically any app. The main goal of this project is as an introduction to basic CRUD options and also gaining experience with handleing user input. 
+
 Requirements
 
     • This is an application where you’ll log occurrences of a habit.
