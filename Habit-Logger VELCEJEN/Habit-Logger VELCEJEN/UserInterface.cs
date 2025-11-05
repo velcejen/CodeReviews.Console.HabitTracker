@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Text;
 
-namespace HabitLogger.VELCEJEN;
+namespace HabitLogger;
 
 internal class UserInterface
 {
@@ -12,10 +12,9 @@ internal class UserInterface
     {
         Console.OutputEncoding = System.Text.Encoding.UTF8;
         Console.CursorVisible = false;
-        MainMenu();
     }
 
-    private void MainMenu()
+    internal void MainMenu()
     {
         bool _exitHabitLogger = false;
         OptionsManager optionsManager = new OptionsManager();
@@ -30,7 +29,6 @@ internal class UserInterface
             do
             {
                 ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-                string userInput = keyInfo.KeyChar.ToString();
                 switch (keyInfo.Key)
                 {
                     case ConsoleKey.LeftArrow:
@@ -81,34 +79,34 @@ internal class UserInterface
             }
 
         } while (!_exitHabitLogger);
-        ShowInfo("[yellow]   E X I T E D   L O G G E R[/]", delay:false);
+        ShowInfo("[yellow]   E X I T E D   L O G G E R[/]", delay: false);
         return;
     }
 
     private void ModifyLogEntry(HabitRecord record)
     {
-        if (record.id != "")
+        if (record.Id != "")
         {
             ShowActionTitle("Modify Register", show: true);
             HabitRecord UpDateRecord = new HabitRecord();
-            UpDateRecord.date = ReadDate(record.date);
-            UpDateRecord.beers = ReadBeers(record.beers);
-            UpDateRecord.location = ReadLocation(record.location);
-            int.TryParse(record.id, out int UpdateId);
-            int.TryParse(UpDateRecord.beers, out int UpDateBeers);
+            UpDateRecord.Date = ReadDate(record.Date);
+            UpDateRecord.Beers = ReadBeers(record.Beers);
+            UpDateRecord.Location = ReadLocation(record.Location);
+            int.TryParse(record.Id, out int UpdateId);
+            int.TryParse(UpDateRecord.Beers, out int UpDateBeers);
 
             using (DatabaseManager databaseManager = new())
             {
 
-                if (databaseManager.ModifyHabit(UpdateId, UpDateRecord.date, UpDateBeers, UpDateRecord.location))
+                if (databaseManager.ModifyHabit(UpdateId, UpDateRecord.Date, UpDateBeers, UpDateRecord.Location))
                 {
                     _logViewManager.Update();
 
-                    ShowInfo($"[Turquoise4]Record Nº[/] [yellow]{record.id}[/][Turquoise4] Modifyed corectlty[/]", delay: true);
+                    ShowInfo($"[Turquoise4]Record Nº[/] [yellow]{record.Id}[/][Turquoise4] Modifyed corectlty[/]", delay: true);
                 }
                 else
                 {
-                    ShowInfo($"[red]Record Nº[/] [yellow]{record.id}[/][red] NOT FOUND[/]", delay: false);
+                    ShowInfo($"[red]Record Nº[/] [yellow]{record.Id}[/][red] NOT FOUND[/]", delay: false);
 
                 }
             }
@@ -120,15 +118,15 @@ internal class UserInterface
     {
         HabitRecord record = new HabitRecord();
         ShowActionTitle("Add New Entry", show: true);
-        record.date = ReadDate();
-        record.beers = ReadBeers();
-        record.location = ReadLocation();
-        int.TryParse(record.id, out int id);
-        int.TryParse(record.beers, out int beers);
+        record.Date = ReadDate();
+        record.Beers = ReadBeers();
+        record.Location = ReadLocation();
+        int.TryParse(record.Id, out int id);
+        int.TryParse(record.Beers, out int beers);
         using (DatabaseManager databaseManager = new())
         {
 
-            if (databaseManager.AddHabit(record.date, beers, record.location))
+            if (databaseManager.AddHabit(record.Date, beers, record.Location))
             {
                 _logViewManager.Update();
 
@@ -146,18 +144,18 @@ internal class UserInterface
 
     private void DeleteLogEntry(HabitRecord record)
     {
-        if (record.id != "")
+        if (record.Id != "")
         {
             ShowActionTitle("Delete Entry", show: true);
             Console.SetCursorPosition(75, 12);
-            AnsiConsole.Markup($"[Plum1]Id:[/] [yellow]{record.id}[/]");
+            AnsiConsole.Markup($"[Plum1]Id:[/] [yellow]{record.Id}[/]");
             Console.SetCursorPosition(75, 13);
-            AnsiConsole.Markup($"[Plum1]Date:[/] [yellow]{record.date}[/]");
+            AnsiConsole.Markup($"[Plum1]Date:[/] [yellow]{record.Date}[/]");
             Console.SetCursorPosition(75, 14);
-            AnsiConsole.Markup($"[Plum1]Beers:[/] [yellow]{record.beers}[/]");
+            AnsiConsole.Markup($"[Plum1]Beers:[/] [yellow]{record.Beers}[/]");
             Console.SetCursorPosition(75, 15);
-            AnsiConsole.Markup($"[Plum1]Location:[/] [yellow]{record.location}[/]");
-            int.TryParse(record.id, out int id);
+            AnsiConsole.Markup($"[Plum1]Location:[/] [yellow]{record.Location}[/]");
+            int.TryParse(record.Id, out int id);
 
             if (ShowInfo("[red]      RECORD WILL BE DELETED[/]", yes: true))
             {
@@ -167,11 +165,11 @@ internal class UserInterface
                     {
                         _logViewManager.Update();
 
-                        ShowInfo($"[Turquoise4]Record Nº[/] [yellow]{record.id}[/][Turquoise4] deleted corectlty[/]", delay: true);
+                        ShowInfo($"[Turquoise4]Record Nº[/] [yellow]{record.Id}[/][Turquoise4] deleted corectlty[/]", delay: true);
                     }
                     else
                     {
-                        ShowInfo($"[red]Record Nº[/] [yellow]{record.id}[/][red] NOT FOUND[/]", true);
+                        ShowInfo($"[red]Record Nº[/] [yellow]{record.Id}[/][red] NOT FOUND[/]", true);
 
                     }
                 }
@@ -189,7 +187,7 @@ internal class UserInterface
         else
             Console.Write(new string(' ', title.Length));
     }
-   
+
     private static bool ShowInfo(string text, bool delay = false, bool yes = false)
     {
         Console.CursorVisible = false;
@@ -301,7 +299,7 @@ internal class UserInterface
         Console.Write($"{corner[1]}" + new string('─', width - 2) + $"{corner[3]}");
     }
 
-    internal static string ReadDate(String? modifyText =null )
+    internal static string ReadDate(String? modifyText = null)
     {
         var input = new StringBuilder();
 
@@ -314,69 +312,69 @@ internal class UserInterface
         }
         else
         {
-    
+
             input.Append(DateTime.Today.ToString("dd-MM-yyyy"));
             AnsiConsole.Markup($"[yellow]{DateTime.Today.ToString("dd-MM-yyyy")}[/]");
         }
-            while (true)
+        while (true)
+        {
+            Console.CursorVisible = true;
+            var key = Console.ReadKey(intercept: true);
+            if (key.Key == ConsoleKey.Enter)
             {
-                Console.CursorVisible = true;
-                var key = Console.ReadKey(intercept: true);
-                if (key.Key == ConsoleKey.Enter)
-                {
-                    Console.WriteLine();
-                    string dateText = input.ToString();
+                Console.WriteLine();
+                string dateText = input.ToString();
 
-                    if (DateTime.TryParseExact(dateText, "dd-MM-yyyy",
-                            CultureInfo.InvariantCulture,
-                            DateTimeStyles.None,
-                            out _))
-                    {
-                        Console.CursorVisible = false;
-                        return dateText;
-                    }
-                    else
-                    {
-                        ShowInfo("[red]        Invalid Date[/]", true);
-                        Console.SetCursorPosition(75, 12);
-                        AnsiConsole.Markup("                ");
-                        Console.SetCursorPosition(75, 12);
-                        AnsiConsole.Markup("[plum1]Date:[/] ");
-                        input.Clear();
-                        continue;
-                    }
-                }
-                if (key.Key == ConsoleKey.Backspace && input.Length > 0)
+                if (DateTime.TryParseExact(dateText, "dd-MM-yyyy",
+                        CultureInfo.InvariantCulture,
+                        DateTimeStyles.None,
+                        out _))
                 {
-                    input.Remove(input.Length - 1, 1);
-                    Console.Write("\b \b");
+                    Console.CursorVisible = false;
+                    return dateText;
+                }
+                else
+                {
+                    ShowInfo("[red]        Invalid Date[/]", true);
+                    Console.SetCursorPosition(75, 12);
+                    AnsiConsole.Markup("                ");
+                    Console.SetCursorPosition(75, 12);
+                    AnsiConsole.Markup("[plum1]Date:[/] ");
+                    input.Clear();
                     continue;
                 }
-                if (char.IsDigit(key.KeyChar))
+            }
+            if (key.Key == ConsoleKey.Backspace && input.Length > 0)
+            {
+                input.Remove(input.Length - 1, 1);
+                Console.Write("\b \b");
+                continue;
+            }
+            if (char.IsDigit(key.KeyChar))
+            {
+                if (input.Length < 10)
                 {
-                    if (input.Length < 10)
+                    input.Append(key.KeyChar);
+                    AnsiConsole.Markup($"[yellow]{key.KeyChar}[/]");
+                }
+                if (input.Length == 3 || input.Length == 6)
+                {
+                    char lastChar = input[input.Length - 1];
+                    if (char.IsDigit(lastChar))
                     {
-                        input.Append(key.KeyChar);
-                        AnsiConsole.Markup($"[yellow]{key.KeyChar}[/]");
-                    }
-                    if (input.Length == 3 || input.Length == 6)
-                    {
-                        char lastChar = input[input.Length - 1];
-                        if (char.IsDigit(lastChar))
-                        {
-                            input.Remove(input.Length - 1, 1);
-                            input.Append('-' + lastChar.ToString());
-                            Console.Write("\b \b");
-                            AnsiConsole.Markup($"[yellow]-{lastChar.ToString()}[/]");
-                        }
-                    }
-                    if (input.Length == 2 || input.Length == 5)
-                    {
-                        input.Append('-');
-                        AnsiConsole.Markup($"[yellow]-[/]");
+                        input.Remove(input.Length - 1, 1);
+                        input.Append('-' + lastChar.ToString());
+                        Console.Write("\b \b");
+                        AnsiConsole.Markup($"[yellow]-{lastChar.ToString()}[/]");
                     }
                 }
+                if (input.Length == 2 || input.Length == 5)
+                {
+                    input.Append('-');
+                    AnsiConsole.Markup($"[yellow]-[/]");
+                }
             }
+        }
     }
 
     private static string ReadBeers(String? modifyText = null)
@@ -450,7 +448,7 @@ internal class UserInterface
             var key = Console.ReadKey(intercept: true);
             if (key.Key == ConsoleKey.Enter && input.ToString().Trim().Length > 0)
             {
-                
+
                 Console.WriteLine();
                 string locationText = input.ToString().Trim();
                 Console.CursorVisible = false;
@@ -459,7 +457,7 @@ internal class UserInterface
             else if (key.Key == ConsoleKey.Enter)
             {
                 input.Clear();
-                ShowInfo("[red]      Invalid Entry[/]",delay:true);
+                ShowInfo("[red]      Invalid Entry[/]", delay: true);
                 Console.SetCursorPosition(75, 14);
                 AnsiConsole.Markup("[Plum1]Location:[/] ");
             }

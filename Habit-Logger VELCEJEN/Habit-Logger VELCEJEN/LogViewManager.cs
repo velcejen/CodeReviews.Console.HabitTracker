@@ -1,13 +1,8 @@
 ﻿using Spectre.Console;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.PortableExecutable;
-using System.Text;
-using System.Threading.Tasks;
 
 
-namespace HabitLogger.VELCEJEN;
+
+namespace HabitLogger;
 
 internal class LogViewManager
 {
@@ -52,25 +47,25 @@ internal class LogViewManager
             if (row == _selectedRow)
             {
                 Console.SetCursorPosition((int)Enums.View.idLeft, (int)Enums.View.top + row);
-                AnsiConsole.Markup($"[bold LightGoldenrod2]{_view[row].id,4}[/]");
+                AnsiConsole.Markup($"[bold LightGoldenrod2]{_view[row].Id,4}[/]");
                 Console.SetCursorPosition((int)Enums.View.dateLeft, (int)Enums.View.top + row);
-                AnsiConsole.Markup($"[bold LightGoldenrod2]{_view[row].date,-10}[/]");
+                AnsiConsole.Markup($"[bold LightGoldenrod2]{_view[row].Date,-10}[/]");
                 Console.SetCursorPosition((int)Enums.View.beersLeft, (int)Enums.View.top + row);
-                AnsiConsole.Markup($"[bold LightGoldenrod2]{_view[row].beers,5}[/]");
+                AnsiConsole.Markup($"[bold LightGoldenrod2]{_view[row].Beers,5}[/]");
                 Console.SetCursorPosition((int)Enums.View.locationLeft, (int)Enums.View.top + row);
-                AnsiConsole.Markup($"[bold LightGoldenrod2]{_view[row].location,-18}[/]");
+                AnsiConsole.Markup($"[bold LightGoldenrod2]{_view[row].Location,-18}[/]");
 
             }
             else
             {
                 Console.SetCursorPosition((int)Enums.View.idLeft, (int)Enums.View.top + row);
-                AnsiConsole.Markup($"[LightSkyBlue1]{_view[row].id,4}[/]");
+                AnsiConsole.Markup($"[LightSkyBlue1]{_view[row].Id,4}[/]");
                 Console.SetCursorPosition((int)Enums.View.dateLeft, (int)Enums.View.top + row);
-                AnsiConsole.Markup($"[LightSkyBlue1]{_view[row].date,-10}[/]");
+                AnsiConsole.Markup($"[LightSkyBlue1]{_view[row].Date,-10}[/]");
                 Console.SetCursorPosition((int)Enums.View.beersLeft, (int)Enums.View.top + row);
-                AnsiConsole.Markup($"[LightSkyBlue1]{_view[row].beers,5}[/]");
+                AnsiConsole.Markup($"[LightSkyBlue1]{_view[row].Beers,5}[/]");
                 Console.SetCursorPosition((int)Enums.View.locationLeft, (int)Enums.View.top + row);
-                AnsiConsole.Markup($"[LightSkyBlue1]{_view[row].location,-18}[/]");
+                AnsiConsole.Markup($"[LightSkyBlue1]{_view[row].Location,-18}[/]");
             }
         }
         _currentHabitTableRegister = _startShowingRow + _selectedRow;
@@ -86,10 +81,10 @@ internal class LogViewManager
             {
                 var newRow = new HabitRecord
                 {
-                    id = _habitsTable[row].id,
-                    date = _habitsTable[row].date,
-                    beers = _habitsTable[row].beers,
-                    location = _habitsTable[row].location
+                    Id = _habitsTable[row].Id,
+                    Date = _habitsTable[row].Date,
+                    Beers = _habitsTable[row].Beers,
+                    Location = _habitsTable[row].Location
                 };
                 _view.Add(newRow);
             }
@@ -127,9 +122,9 @@ internal class LogViewManager
     internal HabitRecord CurrentRegister()
     {
         var currentRegister = new HabitRecord();
-        if (_habitsTable.Count>0)
+        if (_habitsTable.Count > 0)
         {
-                currentRegister = _habitsTable[_currentHabitTableRegister];
+            currentRegister = _habitsTable[_currentHabitTableRegister];
         }
         return currentRegister;
     }

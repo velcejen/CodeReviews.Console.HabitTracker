@@ -1,9 +1,9 @@
-﻿namespace HabitLogger.VELCEJEN;
+﻿namespace HabitLogger;
 
 internal class HabitRecord
 {
-    public string id { get; set; } = "";
-    public string date { get; set; } = "";
-    public string beers { get; set; } = "";
-    public string location { get; set; } = "";
+    public string Id { get; set; } = "";
+    public string Date { get; set; } = "";
+    public string Beers { get; set; } = "";
+    public string Location { get; set; } = "";
 }

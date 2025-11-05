@@ -1,6 +1,6 @@
 ﻿using Spectre.Console;
 
-namespace HabitLogger.VELCEJEN;
+namespace HabitLogger;
 
 internal class OptionsManager
 {
@@ -8,10 +8,10 @@ internal class OptionsManager
 
     private readonly List<(string name, int leftPos, int topPos)> menuOption = new()
     {
-        ("Add",(int)Enums.IdColumn.left+5, (int)Enums.IdColumn.height + 8 ),
-        ("Modify",(int)Enums.IdColumn.left+12, (int)Enums.IdColumn.height + 8),
-        ("Delete",(int)Enums.IdColumn.left+22,(int)Enums.IdColumn.height + 8),
-        ("Exit",(int)Enums.IdColumn.left+32, (int)Enums.IdColumn.height + 8)
+        ("Add",(int)Enums.OptionsAdd.x, (int)Enums.OptionsAdd.y ),
+        ("Modify",(int)Enums.OptionsModify.x, (int)Enums.OptionsModify.y),
+        ("Delete",(int)Enums.OptionsDelete.x,(int)Enums.OptionsDelete.y),
+        ("Exit",(int)Enums.OptionsExit.x, (int)Enums.OptionsExit.y)
     };
     internal OptionsManager()
     {
